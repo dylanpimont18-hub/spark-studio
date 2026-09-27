@@ -29,6 +29,8 @@ les fichiers sans traitement.
 - **Mentions légales** : compléter les champs entre crochets dans le pied de page
   (forme juridique, adresse, SIRET, directeur de la publication).
 - **Textes** : tout le contenu est dans `index.html`, section par section.
+- **Réalisations** : pour ajouter un site, dupliquer un `li.work` dans la section `#realisations`
+  et déposer une capture 1200×633 dans `assets/realisations/` (WebP, qualité 82).
 
 ## Formulaire de contact
 
@@ -45,6 +47,7 @@ css/style.css       tokens, mise en page, composants, animation d'arrivée, resp
 js/main.js          menu mobile, section courante, validation du formulaire, mailto
 assets/fonts/       Bricolage Grotesque (variable, woff2, auto-hébergée)
 assets/favicon.svg  étincelle
+assets/realisations captures WebP des sites clients (hero et section Réalisations)
 docs/superpowers/   spec de design
 ```
 

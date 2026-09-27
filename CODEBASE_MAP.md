@@ -3,9 +3,10 @@
 ## index.html
 Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de page.
 - `header.site-header` — marque, bouton Menu (mobile), nav ancres, CTA
-- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-phone` (maquette CSS d'un site d'artisan fictif, légendée « exemple »)
+- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-phone` (capture mobile réelle du site pib-vierzon.fr dans un cadre de téléphone CSS)
 - `section#inclus` — liste `.feature-list` (5 lignes titre + phrase, pictos SVG inline)
 - `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
+- `section#realisations` — `.work-list` : 2 réalisations réelles (PIB Vierzon, Soly'bat 18), fenêtre navigateur `.browser` (pastille URL + capture) et `.work-text`, alternance via `.work-flip`
 - `section#tarif` — `.price-panel` chanfreiné : Pack complet, 350 €, 4 inclusions, mention, CTA
 - `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
 - `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales à compléter), copyright
@@ -19,7 +20,8 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.site-header` — collant, translucide avec `backdrop-filter`
 - `.btn` — bouton chanfreiné (dégradé 45°), `@property --btn-bg` pour la transition
 - `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play`
-- `.hero-phone`, `.phone`, `.ms-*` — maquette téléphone (absolue à droite du hero, déborde en bas ; statique sous 56rem)
+- `.hero-phone`, `.phone`, `.phone-screen img` — téléphone (absolu à droite du hero, déborde en bas ; statique sous 56rem)
+- `.work*`, `.browser*` — réalisations : fenêtres de navigateur avec ombre, texte aligné en bas, empilées sous 56rem
 - `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
 - `.price-panel` — `clip-path` chanfrein, bord haut ambre, brossé via `::before`
 - `.contact-form` — feuille claire chanfreinée ; `.field*`, `.form-status` — champs, erreurs inline, statut
@@ -38,6 +40,7 @@ IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 ## assets/
 - `fonts/BricolageGrotesque-latin.woff2`, `…-latin-ext.woff2` — police variable auto-hébergée
 - `favicon.svg` — étincelle ambre sur bleu
+- `realisations/pib-desktop.webp`, `solybat-desktop.webp` (1200×633), `pib-mobile.webp` (500×956) — captures des sites clients
 
 ## Autres
 - Déploiement : https://dylanpimont18-hub.github.io/spark-studio/ (GitHub Pages, branche `main`, racine)
