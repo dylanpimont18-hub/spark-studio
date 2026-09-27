@@ -10,7 +10,7 @@ Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de 
 - `section#tarif` — sur devis, sans prix affiché : `.tier-list` de 3 formules chanfreinées en escalier (Site vitrine, Site et identité, Application web), chacune avec inclusions et site exemple ; `.tier-foot` (mention 15 jours + CTA)
 - `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
 - `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales à compléter), copyright
-- Email : `contact@sparkpro.fr` (3 occurrences), boîte à créer chez Hostinger
+- Email : `contact@sparklearning.fr` (3 occurrences)
 
 ## css/style.css
 Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons → hero → sections → composants → pied → animation → responsive.

@@ -24,8 +24,8 @@ les fichiers sans traitement.
 
 ## À personnaliser avant la mise en ligne
 
-- **Adresse email** : `contact@sparkpro.fr` est écrite dans `index.html` (trois occurrences :
-  le lien de la section Contact, l'attribut `action` du formulaire, les mentions légales). La boîte doit exister chez Hostinger.
+- **Adresse email** : `contact@sparklearning.fr` est écrite dans `index.html` (trois occurrences :
+  le lien de la section Contact, l'attribut `action` du formulaire, les mentions légales).
 - **Mentions légales** : compléter les champs entre crochets dans le pied de page
   (forme juridique, adresse, SIRET, directeur de la publication).
 - **Textes** : tout le contenu est dans `index.html`, section par section.
