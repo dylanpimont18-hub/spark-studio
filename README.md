@@ -3,6 +3,9 @@
 Site one-page de Spark Studio : création et entretien de sites internet pour artisans.
 HTML, CSS et JavaScript autonomes, sans dépendance ni étape de build.
 
+En ligne : https://dylanpimont18-hub.github.io/spark-studio/
+Dépôt : https://github.com/dylanpimont18-hub/spark-studio
+
 ## Lancer en local
 
 Ouvrir `index.html` dans un navigateur suffit. Pour un serveur local :
@@ -15,9 +18,9 @@ puis ouvrir http://localhost:8000.
 
 ## Déployer sur GitHub Pages
 
-1. Pousser le dossier tel quel dans un dépôt GitHub.
-2. Dans *Settings → Pages*, choisir la branche `main` et le dossier `/ (root)`.
-3. Le fichier `.nojekyll` est déjà présent : GitHub sert les fichiers sans traitement.
+GitHub Pages est activé sur la branche `main`, dossier racine. Chaque `git push` sur `main`
+met le site à jour en une minute environ. Le fichier `.nojekyll` est présent : GitHub sert
+les fichiers sans traitement.
 
 ## À personnaliser avant la mise en ligne
 

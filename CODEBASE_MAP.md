@@ -37,6 +37,8 @@ IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 - `favicon.svg` — étincelle ambre sur bleu
 
 ## Autres
+- Déploiement : https://dylanpimont18-hub.github.io/spark-studio/ (GitHub Pages, branche `main`, racine)
+- `.gitignore` — fichiers système et page d'encapsulation de test `_shot.html`
 - `.nojekyll` — GitHub Pages sans Jekyll
 - `README.md` — lancement, déploiement, points à personnaliser
 - `docs/superpowers/specs/2026-09-27-spark-studio-site-design.md` — spec de design
