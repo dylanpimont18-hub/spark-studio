@@ -1,0 +1,165 @@
+/* Spark Studio — interactions de la page
+   1. animation d'arrivée (démarre quand la police est prête)
+   2. menu mobile
+   3. section courante dans la navigation
+   4. formulaire : validation inline puis envoi via mailto (temporaire, sans backend) */
+(function () {
+  'use strict';
+
+  var html = document.documentElement;
+  html.classList.add('js');
+
+  /* ---------- 1. Animation d'arrivée ---------- */
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var started = false;
+  function play() {
+    if (started) { return; }
+    started = true;
+    window.requestAnimationFrame(function () { html.classList.add('play'); });
+  }
+  if (reduced) {
+    play();
+  } else {
+    if (document.fonts && document.fonts.load) {
+      Promise.all([
+        document.fonts.load('800 1em "Bricolage Grotesque"'),
+        document.fonts.load('300 1em "Bricolage Grotesque"')
+      ]).then(play, play);
+    }
+    window.setTimeout(play, 700);
+  }
+
+  /* ---------- 2. Menu mobile ---------- */
+  var header = document.querySelector('.site-header');
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('site-nav');
+
+  function setOpen(open) {
+    header.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+  toggle.addEventListener('click', function () {
+    setOpen(!header.classList.contains('is-open'));
+  });
+  nav.addEventListener('click', function (event) {
+    if (event.target.closest('a')) { setOpen(false); }
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && header.classList.contains('is-open')) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  var desktop = window.matchMedia('(min-width: 56.01rem)');
+  if (desktop.addEventListener) {
+    desktop.addEventListener('change', function (event) {
+      if (event.matches) { setOpen(false); }
+    });
+  }
+
+  /* ---------- 3. Section courante ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  var sections = links
+    .map(function (link) { return document.querySelector(link.getAttribute('href')); })
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    var visible = [];
+    function setCurrent(id) {
+      links.forEach(function (link) {
+        if (id && link.getAttribute('href') === '#' + id) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var index = visible.indexOf(entry.target);
+        if (entry.isIntersecting && index === -1) { visible.push(entry.target); }
+        if (!entry.isIntersecting && index !== -1) { visible.splice(index, 1); }
+      });
+      var current = sections.filter(function (section) { return visible.indexOf(section) !== -1; })[0];
+      setCurrent(current ? current.id : null);
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function (section) { observer.observe(section); });
+  }
+
+  /* ---------- 4. Formulaire ---------- */
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var messages = {
+    nom: 'Indiquez votre nom.',
+    metier: 'Indiquez votre métier.',
+    ville: 'Indiquez votre ville.',
+    email: 'Indiquez une adresse email valide, par exemple nom@exemple.fr.',
+    message: 'Décrivez votre projet en quelques mots.'
+  };
+  var inputs = Array.prototype.slice.call(form.querySelectorAll('input, textarea'));
+
+  function fieldOf(input) { return input.closest('.field'); }
+
+  function showError(input, text) {
+    var field = fieldOf(input);
+    field.classList.toggle('is-invalid', Boolean(text));
+    field.querySelector('.field-error').textContent = text || '';
+    if (text) {
+      input.setAttribute('aria-invalid', 'true');
+    } else {
+      input.removeAttribute('aria-invalid');
+    }
+  }
+
+  function validate(input) {
+    var key = input.id.replace('f-', '');
+    var value = input.value.trim();
+    var text = '';
+    if (!value) {
+      text = messages[key];
+    } else if (input.type === 'email' && !emailPattern.test(value)) {
+      text = messages.email;
+    }
+    showError(input, text);
+    return !text;
+  }
+
+  inputs.forEach(function (input) {
+    input.addEventListener('blur', function () {
+      if (input.value.trim() || fieldOf(input).classList.contains('is-invalid')) { validate(input); }
+    });
+    input.addEventListener('input', function () {
+      if (fieldOf(input).classList.contains('is-invalid')) { validate(input); }
+    });
+  });
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    status.textContent = '';
+
+    var results = inputs.map(validate);
+    var firstInvalid = inputs[results.indexOf(false)];
+    if (firstInvalid) {
+      firstInvalid.focus();
+      return;
+    }
+
+    var value = function (id) { return document.getElementById(id).value.trim(); };
+    var to = form.getAttribute('action').replace(/^mailto:/, '');
+    var subject = 'Demande de devis : ' + value('f-metier') + ' à ' + value('f-ville');
+    var body = [
+      'Nom : ' + value('f-nom'),
+      'Métier : ' + value('f-metier'),
+      'Ville : ' + value('f-ville'),
+      'Email : ' + value('f-email'),
+      '',
+      value('f-message')
+    ].join('\n');
+
+    /* Solution temporaire sans backend : on ouvre la messagerie du visiteur.
+       Pour brancher un service d'envoi plus tard, remplacer les deux lignes ci-dessous. */
+    window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    status.textContent = 'Votre messagerie s’ouvre avec la demande pré-remplie. Si rien ne se passe, écrivez directement à ' + to + '.';
+  });
+})();
