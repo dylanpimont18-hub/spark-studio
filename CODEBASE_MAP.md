@@ -6,8 +6,8 @@ Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de 
 - `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-phone` (capture mobile réelle du site pib-vierzon.fr dans un cadre de téléphone CSS)
 - `section#inclus` — liste `.feature-list` (5 lignes titre + phrase, pictos SVG inline)
 - `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
-- `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture) et `.work-text`, alternance via `.work-flip`
-- `section#tarif` — `.price-panel` chanfreiné : Pack complet, 350 €, 4 inclusions, mention, CTA
+- `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture), `.work-text` avec `dl.work-facts` (budget réel, fréquentation), alternance via `.work-flip`
+- `section#tarif` — sur devis, sans prix affiché : `.tier-list` de 3 formules chanfreinées en escalier (Site vitrine, Site et identité, Application web), chacune avec inclusions et site exemple ; `.tier-foot` (mention 15 jours + CTA)
 - `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
 - `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales à compléter), copyright
 - Email à remplacer : `contact@spark-studio.fr` (3 occurrences)
@@ -23,7 +23,8 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.hero-phone`, `.phone`, `.phone-screen img` — téléphone (absolu à droite du hero, déborde en bas ; statique sous 56rem)
 - `.work*`, `.browser*` — réalisations : fenêtres de navigateur avec ombre, texte aligné en bas, empilées sous 56rem
 - `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
-- `.price-panel` — `clip-path` chanfrein, bord haut ambre, brossé via `::before`
+- `.tier-list`, `.tier` — 3 colonnes, marches via `margin-top` décroissant (`nth-child`), chanfrein `clip-path`, bord haut ambre, brossé `::before`, `.tier-ref` poussé en bas (`margin-top: auto`)
+- `.work-facts` — liste de définitions budget / fréquentation, valeurs en 700
 - `.contact-form` — feuille claire chanfreinée ; `.field*`, `.form-status` — champs, erreurs inline, statut
 - `.footer-mark` — mot-marque XXL en graisse 300, 10 % d'opacité
 - `@media (prefers-reduced-motion)` — animation désactivée, tout visible

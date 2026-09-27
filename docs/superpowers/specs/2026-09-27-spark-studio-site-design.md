@@ -1,6 +1,6 @@
 # Spark Studio — site vitrine one-page (spec de design)
 
-Date : 2026-09-27. Statut : implémenté en autonomie à partir du brief (session non interactive).
+Date : 2026-09-27. Statut : implémenté en autonomie à partir du brief, puis enrichi (réalisations réelles, tarif sur devis).
 
 ## Objectif
 
@@ -75,7 +75,7 @@ passage, puis sous-titre et CTA apparaissent. ~1,6 s au total. Désactivée sous
 2. Hero : H1 « Un site qui inspire confiance dès la première visite. », sous-titre du brief, CTA « Demander un devis gratuit », mention « Réponse sous 48h, sans engagement. »
 3. Inclus : liste de 5 lignes (titre + une phrase), séparées par un filet, pictos SVG maison.
 4. Métiers : 3 rangées (famille + liste de métiers), typographie forte, pictos SVG maison.
-5. Tarif : « Pack complet », 350 €, 4 inclusions, mention sur les ajustements, CTA.
+5. Tarif (révisé le 2026-09-27 après mise en ligne) : sur devis, sans prix fixe. Trois formules en escalier (Site vitrine, Site et identité, Application web) adossées chacune à un site réel ; les budgets réels (350, 650, 2 000 €) et la fréquentation apparaissent sur les réalisations comme repères.
 6. Contact : accroche + formulaire (Nom, Métier, Ville, Email, Message) + « Envoyer ma demande ». Validation inline en français, envoi via `mailto:`.
 7. Pied de page : marque, ancres, mentions légales repliables (champs à compléter).
 
