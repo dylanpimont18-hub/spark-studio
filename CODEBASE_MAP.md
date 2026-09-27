@@ -8,7 +8,7 @@ Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de 
 - `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
 - `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture), `.work-text` avec `dl.work-facts` (budget réel, fréquentation), alternance via `.work-flip`
 - `section#tarif` — sur devis, sans prix affiché : `.tier-list` de 3 formules chanfreinées en escalier (Site vitrine, Site et identité, Application web), chacune avec inclusions et site exemple ; `.tier-foot` (mention 15 jours + CTA)
-- `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
+- `section#contact` — accroche + `form#contact-form` (champs name, metier, ville, email, message) envoyé à Web3Forms (`access_key` caché, `subject`, `from_name`, piège `botcheck`)
 - `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales complètes : EI Dylan Pimont, SIRET, adresse), copyright
 - Email : `contact@sparklearning.fr` (3 occurrences)
 
@@ -28,7 +28,7 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
 - `.tier-list`, `.tier` — 3 colonnes, marches via `margin-top` décroissant (`nth-child`), chanfrein `clip-path`, bord haut ambre, brossé `::before`, `.tier-ref` poussé en bas (`margin-top: auto`)
 - `.work-facts` — liste de définitions budget / fréquentation, valeurs en 700
-- `.contact-form` — feuille claire chanfreinée ; `.field*`, `.form-status` — champs, erreurs inline, statut
+- `.contact-form` — feuille claire chanfreinée ; `.field*`, `.form-status` (`.is-error`), `.form-trap` — champs, erreurs inline, statut, piège à robots caché
 - `.footer-mark` — mot-marque XXL en graisse 300, 10 % d'opacité
 - `.nf-code` — petit « 404 » ambre de la page d'erreur
 - `@media (prefers-reduced-motion)` — animation désactivée, tout visible
@@ -40,7 +40,8 @@ IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 - setOpen(open) — ouvre/ferme le menu mobile (`aria-expanded`, Échap, retour desktop)
 - IntersectionObserver — pose `aria-current` sur le lien de la section visible
 - validate(input) — validation inline en français (`.is-invalid`, `aria-invalid`)
-- submit — construit le `mailto:` (sujet + corps) et affiche `#form-status`
+- setStatus(text, isError) — affiche le message sous le formulaire
+- submit — valide, envoie en `fetch` à api.web3forms.com, succès ou erreur dans `#form-status`
 
 ## assets/
 - `fonts/BricolageGrotesque-latin.woff2`, `…-latin-ext.woff2` — police variable auto-hébergée

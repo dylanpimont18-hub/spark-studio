@@ -278,34 +278,38 @@
           <p class="contact-alt">Vous préférez écrire directement&nbsp;? <a href="mailto:contact@sparklearning.fr">contact@sparklearning.fr</a></p>
         </div>
 
-        <form class="contact-form section-body" id="contact-form" action="mailto:contact@sparklearning.fr" method="post" enctype="text/plain" novalidate>
+        <form class="contact-form section-body" id="contact-form" action="https://api.web3forms.com/submit" method="post" novalidate>
+          <input type="hidden" name="access_key" value="e990c358-ae9a-4072-ac24-f239d22aeea8">
+          <input type="hidden" name="subject" value="Nouvelle demande de devis depuis sparkpro.fr">
+          <input type="hidden" name="from_name" value="Site Spark Pro">
+          <input type="checkbox" name="botcheck" class="form-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="field-row">
             <div class="field">
               <label for="f-nom">Nom</label>
-              <input id="f-nom" name="Nom" type="text" autocomplete="name" required aria-describedby="e-nom">
+              <input id="f-nom" name="name" type="text" autocomplete="name" required aria-describedby="e-nom">
               <p class="field-error" id="e-nom"></p>
             </div>
             <div class="field">
               <label for="f-metier">Métier</label>
-              <input id="f-metier" name="Métier" type="text" autocomplete="organization-title" placeholder="Ex. plombier, boulangère…" required aria-describedby="e-metier">
+              <input id="f-metier" name="metier" type="text" autocomplete="organization-title" placeholder="Ex. plombier, boulangère…" required aria-describedby="e-metier">
               <p class="field-error" id="e-metier"></p>
             </div>
           </div>
           <div class="field-row">
             <div class="field">
               <label for="f-ville">Ville</label>
-              <input id="f-ville" name="Ville" type="text" autocomplete="address-level2" required aria-describedby="e-ville">
+              <input id="f-ville" name="ville" type="text" autocomplete="address-level2" required aria-describedby="e-ville">
               <p class="field-error" id="e-ville"></p>
             </div>
             <div class="field">
               <label for="f-email">Email</label>
-              <input id="f-email" name="Email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email">
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="e-email">
               <p class="field-error" id="e-email"></p>
             </div>
           </div>
           <div class="field">
             <label for="f-message">Message</label>
-            <textarea id="f-message" name="Message" rows="5" required aria-describedby="h-message e-message"></textarea>
+            <textarea id="f-message" name="message" rows="5" required aria-describedby="h-message e-message"></textarea>
             <p class="field-hint" id="h-message">Où en êtes-vous&nbsp;? Un site existant à refaire, ou tout à créer&nbsp;?</p>
             <p class="field-error" id="e-message"></p>
           </div>
@@ -315,7 +319,7 @@
             <p class="cta-note">Réponse sous 48&nbsp;h, sans engagement.</p>
           </div>
 
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <p class="form-status" id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
         </form>
       </div>
     </section>
@@ -350,7 +354,7 @@
         <div class="legal-body">
           <p><strong>Éditeur du site</strong><br>Spark Pro est une marque de Dylan Pimont, entrepreneur individuel (EI), nom commercial Spark Learning.<br>47 rue Vivienne, 75002 Paris.<br>SIREN 108&nbsp;851&nbsp;817, SIRET 108&nbsp;851&nbsp;817&nbsp;00016.<br>Directeur de la publication&nbsp;: Dylan Pimont.<br>Contact&nbsp;: <a href="mailto:contact@sparklearning.fr">contact@sparklearning.fr</a></p>
           <p><strong>Hébergement</strong><br>GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</p>
-          <p><strong>Données personnelles</strong><br>Le formulaire de contact ouvre votre messagerie&nbsp;: aucune donnée n’est stockée sur ce site. Les informations transmises par email servent uniquement à répondre à votre demande.</p>
+          <p><strong>Données personnelles</strong><br>Les informations saisies dans le formulaire de contact sont transmises par email via le service Web3Forms. Elles servent uniquement à répondre à votre demande et ne sont ni revendues ni utilisées à des fins publicitaires. Pour les consulter ou les faire supprimer, écrivez à <a href="mailto:contact@sparklearning.fr">contact@sparklearning.fr</a>.</p>
         </div>
       </details>
 

@@ -791,6 +791,15 @@ svg { display: block; }
   border-left: 3px solid var(--ambre);
 }
 .form-status:empty { display: none; }
+.form-status.is-error {
+  color: var(--erreur);
+  border-left-color: var(--erreur);
+  background: rgba(180, 35, 24, 0.06);
+}
+.form-status:focus { outline: none; }
+.btn:disabled { cursor: progress; opacity: 0.7; }
+/* Piège à robots Web3Forms : invisible pour les humains */
+.form-trap { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
 /* ---------- Pied de page ---------- */
 .site-footer {

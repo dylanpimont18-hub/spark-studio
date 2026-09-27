@@ -2,7 +2,7 @@
    1. animation d'arrivée (démarre quand la police est prête)
    2. menu mobile
    3. section courante dans la navigation
-   4. formulaire : validation inline puis envoi via mailto (temporaire, sans backend) */
+   4. formulaire : validation inline puis envoi via Web3Forms (reçu sur contact@sparklearning.fr) */
 (function () {
   'use strict';
 
@@ -97,7 +97,15 @@
     email: 'Indiquez une adresse email valide, par exemple nom@exemple.fr.',
     message: 'Décrivez votre projet en quelques mots.'
   };
-  var inputs = Array.prototype.slice.call(form.querySelectorAll('input, textarea'));
+  var inputs = Array.prototype.slice.call(form.querySelectorAll('.field input, .field textarea'));
+  var submitBtn = form.querySelector('button[type="submit"]');
+  var submitLabel = submitBtn.textContent;
+  var fallbackEmail = 'contact@sparklearning.fr';
+
+  function setStatus(text, isError) {
+    status.textContent = text;
+    status.classList.toggle('is-error', Boolean(isError));
+  }
 
   function fieldOf(input) { return input.closest('.field'); }
 
@@ -136,7 +144,8 @@
 
   form.addEventListener('submit', function (event) {
     event.preventDefault();
-    status.textContent = '';
+    if (submitBtn.disabled) { return; }
+    setStatus('');
 
     var results = inputs.map(validate);
     var firstInvalid = inputs[results.indexOf(false)];
@@ -146,20 +155,34 @@
     }
 
     var value = function (id) { return document.getElementById(id).value.trim(); };
-    var to = form.getAttribute('action').replace(/^mailto:/, '');
-    var subject = 'Demande de devis : ' + value('f-metier') + ' à ' + value('f-ville');
-    var body = [
-      'Nom : ' + value('f-nom'),
-      'Métier : ' + value('f-metier'),
-      'Ville : ' + value('f-ville'),
-      'Email : ' + value('f-email'),
-      '',
-      value('f-message')
-    ].join('\n');
+    var data = new FormData(form);
+    data.set('subject', 'Demande de devis : ' + value('f-metier') + ' à ' + value('f-ville'));
+    data.set('replyto', value('f-email'));
 
-    /* Solution temporaire sans backend : on ouvre la messagerie du visiteur.
-       Pour brancher un service d'envoi plus tard, remplacer les deux lignes ci-dessous. */
-    window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    status.textContent = 'Votre messagerie s’ouvre avec la demande pré-remplie. Si rien ne se passe, écrivez directement à ' + to + '.';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Envoi en cours…';
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: data
+    })
+      .then(function (response) {
+        return response.json().then(function (json) {
+          if (!response.ok || !json.success) { throw new Error(json.message || 'Erreur'); }
+        });
+      })
+      .then(function () {
+        form.reset();
+        setStatus('Merci, votre demande est bien envoyée. Vous recevrez une réponse sous 48 h à l’adresse indiquée.');
+      })
+      .catch(function () {
+        setStatus('L’envoi n’a pas abouti. Réessayez dans un instant, ou écrivez directement à ' + fallbackEmail + '.', true);
+      })
+      .then(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitLabel;
+        status.focus();
+      });
   });
 })();
