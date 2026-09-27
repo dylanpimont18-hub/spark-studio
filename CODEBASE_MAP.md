@@ -6,7 +6,7 @@ Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de 
 - `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-phone` (capture mobile réelle du site pib-vierzon.fr dans un cadre de téléphone CSS)
 - `section#inclus` — liste `.feature-list` (5 lignes titre + phrase, pictos SVG inline)
 - `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
-- `section#realisations` — `.work-list` : 2 réalisations réelles (PIB Vierzon, Soly'bat 18), fenêtre navigateur `.browser` (pastille URL + capture) et `.work-text`, alternance via `.work-flip`
+- `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture) et `.work-text`, alternance via `.work-flip`
 - `section#tarif` — `.price-panel` chanfreiné : Pack complet, 350 €, 4 inclusions, mention, CTA
 - `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
 - `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales à compléter), copyright
@@ -40,7 +40,7 @@ IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 ## assets/
 - `fonts/BricolageGrotesque-latin.woff2`, `…-latin-ext.woff2` — police variable auto-hébergée
 - `favicon.svg` — étincelle ambre sur bleu
-- `realisations/pib-desktop.webp`, `solybat-desktop.webp` (1200×633), `pib-mobile.webp` (500×956) — captures des sites clients
+- `realisations/pib-desktop.webp`, `solybat-desktop.webp`, `sparklearning-desktop.webp` (1200×633), `pib-mobile.webp` (500×956) — captures des sites clients
 
 ## Autres
 - Déploiement : https://dylanpimont18-hub.github.io/spark-studio/ (GitHub Pages, branche `main`, racine)
