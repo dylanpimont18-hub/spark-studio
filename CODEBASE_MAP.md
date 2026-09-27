@@ -9,8 +9,11 @@ Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de 
 - `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture), `.work-text` avec `dl.work-facts` (budget réel, fréquentation), alternance via `.work-flip`
 - `section#tarif` — sur devis, sans prix affiché : `.tier-list` de 3 formules chanfreinées en escalier (Site vitrine, Site et identité, Application web), chacune avec inclusions et site exemple ; `.tier-foot` (mention 15 jours + CTA)
 - `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
-- `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales à compléter), copyright
+- `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales complètes : EI Dylan Pimont, SIRET, adresse), copyright
 - Email : `contact@sparklearning.fr` (3 occurrences)
+
+## 404.html
+Page d'erreur servie par GitHub Pages : en-tête simplifié, hero sombre « Cette page n'existe pas », retour accueil. Chemins absolus (/css, /assets), `noindex`, sans JS.
 
 ## css/style.css
 Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons → hero → sections → composants → pied → animation → responsive.
@@ -27,6 +30,7 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.work-facts` — liste de définitions budget / fréquentation, valeurs en 700
 - `.contact-form` — feuille claire chanfreinée ; `.field*`, `.form-status` — champs, erreurs inline, statut
 - `.footer-mark` — mot-marque XXL en graisse 300, 10 % d'opacité
+- `.nf-code` — petit « 404 » ambre de la page d'erreur
 - `@media (prefers-reduced-motion)` — animation désactivée, tout visible
 - `@media (max-width: 56rem)` — menu mobile, colonnes empilées ; `(max-width: 40rem)` — ajustements téléphone
 

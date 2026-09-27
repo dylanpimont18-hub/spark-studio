@@ -1005,3 +1005,12 @@ html.play .hero-phone { animation: settle 0.9s var(--ease-out) 1.15s forwards; }
   .field-row { grid-template-columns: 1fr; }
   :root { --cut: 1.5rem; }
 }
+
+/* ---------- Page 404 ---------- */
+.nf-code {
+  grid-column: 1 / -1;
+  margin-bottom: -1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ambre);
+}
