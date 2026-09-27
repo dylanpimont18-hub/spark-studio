@@ -3,24 +3,27 @@
 ## index.html
 Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de page.
 - `header.site-header` — marque, bouton Menu (mobile), nav ancres, CTA
-- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA
+- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-phone` (maquette CSS d'un site d'artisan fictif, légendée « exemple »)
 - `section#inclus` — liste `.feature-list` (5 lignes titre + phrase, pictos SVG inline)
-- `section#metiers` — liste `.trade-list` (3 familles), mise en page inversée (`.section-flip`)
+- `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
 - `section#tarif` — `.price-panel` chanfreiné : Pack complet, 350 €, 4 inclusions, mention, CTA
 - `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
-- `footer.site-footer` — marque, nav, `details.legal` (mentions légales à compléter), copyright
+- `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales à compléter), copyright
 - Email à remplacer : `contact@spark-studio.fr` (3 occurrences)
 
 ## css/style.css
 Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons → hero → sections → composants → pied → animation → responsive.
 - `@font-face` Bricolage Grotesque — 2 sous-ensembles woff2 locaux (latin, latin-ext)
 - `:root` — tokens couleurs (`--bleu`, `--platre`, `--acier`, `--ambre`…), `--noise` (grain SVG), espacements
-- `.is-dark` / `.section-tint` — surfaces ; grain via `::before` sur `.hero`, `.section`, `.site-footer`
+- `.is-dark` / `.section-tint` — surfaces ; grain via `::before`, reflet lumineux via `.is-dark::after`
+- `.site-header` — collant, translucide avec `backdrop-filter`
 - `.btn` — bouton chanfreiné (dégradé 45°), `@property --btn-bg` pour la transition
 - `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play`
-- `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-flip`
+- `.hero-phone`, `.phone`, `.ms-*` — maquette téléphone (absolue à droite du hero, déborde en bas ; statique sous 56rem)
+- `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
 - `.price-panel` — `clip-path` chanfrein, bord haut ambre, brossé via `::before`
-- `.field*`, `.form-status` — formulaire, erreurs inline, message de statut
+- `.contact-form` — feuille claire chanfreinée ; `.field*`, `.form-status` — champs, erreurs inline, statut
+- `.footer-mark` — mot-marque XXL en graisse 300, 10 % d'opacité
 - `@media (prefers-reduced-motion)` — animation désactivée, tout visible
 - `@media (max-width: 56rem)` — menu mobile, colonnes empilées ; `(max-width: 40rem)` — ajustements téléphone
 
