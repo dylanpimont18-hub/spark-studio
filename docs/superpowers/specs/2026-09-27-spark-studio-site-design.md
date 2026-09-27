@@ -1,10 +1,10 @@
-# Spark Studio — site vitrine one-page (spec de design)
+# Spark Pro (ex Spark Studio) — site vitrine one-page (spec de design)
 
 Date : 2026-09-27. Statut : implémenté en autonomie à partir du brief, puis enrichi (réalisations réelles, tarif sur devis).
 
 ## Objectif
 
-Vitrine commerciale de Spark Studio, entreprise qui crée et héberge des sites
+Vitrine commerciale de Spark Pro (nom de marque retenu le 2026-09-27, après « Spark Studio » dans le brief), entreprise qui crée et héberge des sites
 internet pour artisans (bâtiment, dépannage, commerces de proximité).
 Le site doit inspirer confiance immédiatement et amener à demander un devis.
 

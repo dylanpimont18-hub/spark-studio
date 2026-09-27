@@ -1,4 +1,4 @@
-# CODEBASE_MAP — Spark Studio (site vitrine one-page)
+# CODEBASE_MAP — Spark Pro (site vitrine one-page)
 
 ## index.html
 Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de page.
@@ -10,7 +10,7 @@ Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de 
 - `section#tarif` — sur devis, sans prix affiché : `.tier-list` de 3 formules chanfreinées en escalier (Site vitrine, Site et identité, Application web), chacune avec inclusions et site exemple ; `.tier-foot` (mention 15 jours + CTA)
 - `section#contact` — accroche + `form#contact-form` (Nom, Métier, Ville, Email, Message), `action="mailto:…"`
 - `footer.site-footer` — grand mot-marque fantôme `.footer-mark`, marque, nav, `details.legal` (mentions légales à compléter), copyright
-- Email à remplacer : `contact@spark-studio.fr` (3 occurrences)
+- Email : `contact@sparkpro.fr` (3 occurrences), boîte à créer chez Hostinger
 
 ## css/style.css
 Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons → hero → sections → composants → pied → animation → responsive.
@@ -44,7 +44,8 @@ IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 - `realisations/pib-desktop.webp`, `solybat-desktop.webp`, `sparklearning-desktop.webp` (1200×633), `pib-mobile.webp` (500×956) — captures des sites clients
 
 ## Autres
-- Déploiement : https://dylanpimont18-hub.github.io/spark-studio/ (GitHub Pages, branche `main`, racine)
+- Déploiement : https://sparkpro.fr (GitHub Pages, branche `main`, racine, `CNAME` = sparkpro.fr ; miroir dylanpimont18-hub.github.io/spark-studio)
+- `CNAME` — domaine personnalisé GitHub Pages
 - `.gitignore` — fichiers système et page d'encapsulation de test `_shot.html`
 - `.nojekyll` — GitHub Pages sans Jekyll
 - `README.md` — lancement, déploiement, points à personnaliser

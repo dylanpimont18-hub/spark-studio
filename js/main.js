@@ -1,4 +1,4 @@
-/* Spark Studio — interactions de la page
+/* Spark Pro — interactions de la page
    1. animation d'arrivée (démarre quand la police est prête)
    2. menu mobile
    3. section courante dans la navigation

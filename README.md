@@ -1,9 +1,9 @@
-# Spark Studio — site vitrine
+# Spark Pro — site vitrine
 
-Site one-page de Spark Studio : création et entretien de sites internet pour artisans.
+Site one-page de Spark Pro : création et entretien de sites internet pour artisans.
 HTML, CSS et JavaScript autonomes, sans dépendance ni étape de build.
 
-En ligne : https://dylanpimont18-hub.github.io/spark-studio/
+En ligne : https://sparkpro.fr (miroir : https://dylanpimont18-hub.github.io/spark-studio/)
 Dépôt : https://github.com/dylanpimont18-hub/spark-studio
 
 ## Lancer en local
@@ -18,14 +18,14 @@ puis ouvrir http://localhost:8000.
 
 ## Déployer sur GitHub Pages
 
-GitHub Pages est activé sur la branche `main`, dossier racine. Chaque `git push` sur `main`
+GitHub Pages est activé sur la branche `main`, dossier racine, avec le domaine personnalisé `sparkpro.fr` (fichier `CNAME`, DNS chez Hostinger : 4 enregistrements A vers GitHub et `www` en CNAME). Chaque `git push` sur `main`
 met le site à jour en une minute environ. Le fichier `.nojekyll` est présent : GitHub sert
 les fichiers sans traitement.
 
 ## À personnaliser avant la mise en ligne
 
-- **Adresse email** : remplacer `contact@spark-studio.fr` dans `index.html` (trois occurrences :
-  le lien de la section Contact, l'attribut `action` du formulaire, les mentions légales).
+- **Adresse email** : `contact@sparkpro.fr` est écrite dans `index.html` (trois occurrences :
+  le lien de la section Contact, l'attribut `action` du formulaire, les mentions légales). La boîte doit exister chez Hostinger.
 - **Mentions légales** : compléter les champs entre crochets dans le pied de page
   (forme juridique, adresse, SIRET, directeur de la publication).
 - **Textes** : tout le contenu est dans `index.html`, section par section.
