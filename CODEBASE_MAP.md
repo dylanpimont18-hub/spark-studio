@@ -44,7 +44,7 @@ IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 - `realisations/pib-desktop.webp`, `solybat-desktop.webp`, `sparklearning-desktop.webp` (1200×633), `pib-mobile.webp` (500×956) — captures des sites clients
 
 ## Autres
-- Déploiement : https://sparkpro.fr (GitHub Pages, branche `main`, racine, `CNAME` = sparkpro.fr ; miroir dylanpimont18-hub.github.io/spark-studio)
+- Déploiement : https://sparkpro.fr (GitHub Pages, branche `main`, racine, `CNAME` = sparkpro.fr ; miroir dylanpimont18-hub.github.io/sparkpro)
 - `CNAME` — domaine personnalisé GitHub Pages
 - `.gitignore` — fichiers système et page d'encapsulation de test `_shot.html`
 - `.nojekyll` — GitHub Pages sans Jekyll

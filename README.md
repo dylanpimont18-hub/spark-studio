@@ -3,8 +3,8 @@
 Site one-page de Spark Pro : création et entretien de sites internet pour artisans.
 HTML, CSS et JavaScript autonomes, sans dépendance ni étape de build.
 
-En ligne : https://sparkpro.fr (miroir : https://dylanpimont18-hub.github.io/spark-studio/)
-Dépôt : https://github.com/dylanpimont18-hub/spark-studio
+En ligne : https://sparkpro.fr (miroir : https://dylanpimont18-hub.github.io/sparkpro/)
+Dépôt : https://github.com/dylanpimont18-hub/sparkpro
 
 ## Lancer en local
 
