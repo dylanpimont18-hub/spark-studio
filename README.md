@@ -56,4 +56,5 @@ docs/superpowers/   spec de design
 Concept « bleu de travail et étincelle » : bleu profond, plâtre clair, acier, et un seul
 accent ambre. Une seule famille typographique (Bricolage Grotesque), graisses 800 et 300.
 Une seule animation, au chargement du hero : le titre se révèle, puis la maquette de site
-se monte brique par brique, de bas en haut comme un mur, puis l'adresse s'allume. Détails dans `docs/superpowers/specs/`.
+se monte brique par brique, de bas en haut comme un mur, puis se démonte, en boucle
+(bouton pause, boucle arrêtée hors écran et en mouvement réduit). Détails dans `docs/superpowers/specs/`.

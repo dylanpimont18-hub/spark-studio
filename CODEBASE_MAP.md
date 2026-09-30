@@ -3,7 +3,7 @@
 ## index.html
 Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de page.
 - `header.site-header` — marque, bouton Menu (mobile), nav ancres, CTA
-- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-build` (maquette « chantier » : fenêtre de navigateur `.build` avec adresse `votre-metier.fr`, page `.build-page` de 6 briques `.brick` > `.brick-drop` > `.brick-face` — en-tête, photos, texte, avis, devis, contact — qui se montent une à une sur un plan en pointillés ; `.build-caption` explique le principe ; tout le mock est `aria-hidden`)
+- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-build` (maquette « chantier » : fenêtre de navigateur `.build` avec adresse `votre-metier.fr`, bouton pause `.build-toggle` dans la barre, page `.build-page` (`aria-hidden`) de 6 briques `.brick` > `.brick-drop` > `.brick-face` — en-tête, photos, texte, avis, devis, contact — qui se montent une à une sur un plan en pointillés ; `.build-caption` explique le principe)
 - `section#inclus` — liste `.feature-list` (4 lignes titre + phrase, pictos SVG inline)
 - `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
 - `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture), `.work-text` avec `dl.work-facts` (budget réel, fréquentation), alternance via `.work-flip`
@@ -22,7 +22,7 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.is-dark` / `.section-tint` — surfaces ; grain via `::before`, reflet lumineux via `.is-dark::after`
 - `.site-header` — collant, translucide avec `backdrop-filter`
 - `.btn` — bouton chanfreiné (dégradé 45°), `@property --btn-bg` pour la transition
-- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play` : titre, filet, étincelle ; montage sous `.hero-build.is-building` (posé par le script sur la maquette quand elle est visible) : chute des briques de bas en haut (`@keyframes drop`, rebonds, contact à 0 s jusqu'à l'en-tête à 1,4 s) et adresse qui s'allume en ambre (`online`, 2,2 s)
+- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play` : titre, filet, étincelle ; boucle de la maquette pilotée par le script : `.is-building` (chute de bas en haut, `@keyframes drop` 1 s avec rebonds, contact à 0 s jusqu'à l'en-tête à 1,9 s, adresse allumée par `online` à 3,1 s), `.is-clearing` (`lift`, `offline` : les briques se lèvent et s'effacent), puis plan vide ; `.is-paused` fige la maquette finie
 - `.hero-build`, `.build*`, `.brick*`, `.mock-*` — maquette chantier (absolue à droite du hero, déborde en bas ; 20rem, 18rem sous 81rem, 16rem sous 62rem, statique et pleine largeur sous 56rem ; hero resserré sous 50rem de haut pour tenir sous le pli) ; briques chanfreinées via `clip-path` sur `.brick-face`, ombre portée via `filter` sur `.brick-drop` (animé), emplacement pointillé via `.brick::before`
 - `.work*`, `.browser*` — réalisations : fenêtres de navigateur avec ombre, texte aligné en bas, empilées sous 56rem
 - `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
@@ -37,7 +37,7 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 ## js/main.js
 IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 - play() — lance l'animation quand la police est chargée (ou après 700 ms)
-- scheduleBuild() — pose `.is-building` sur `.hero-build` quand la police est prête et que `.hero-build` est visible (IntersectionObserver, seuil 30 %), au plus tôt 900 ms après le départ
+- runPhase(), startLoop(), setPaused() — boucle de la maquette : `.is-building` 7,2 s, `.is-clearing` 1,2 s, repos 0,8 s ; ne tourne que si 30 % de `.hero-build` est visible (IntersectionObserver), l'onglet affiché et la pause non demandée ; premier montage 900 ms au plus tôt après le départ ; bouton `.build-toggle` (pause / relance, `aria-label` mis à jour) ; rien en mouvement réduit
 - setOpen(open) — ouvre/ferme le menu mobile (`aria-expanded`, Échap, retour desktop)
 - IntersectionObserver — pose `aria-current` sur le lien de la section visible
 - validate(input) — validation inline en français (`.is-invalid`, `aria-invalid`)

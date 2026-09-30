@@ -386,6 +386,7 @@ svg { display: block; }
     0 0 0 1px rgba(255, 255, 255, 0.16);
 }
 .build-bar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -410,6 +411,38 @@ svg { display: block; }
   background: var(--ambre);
   box-shadow: 0 0 8px rgba(245, 165, 36, 0.9);
 }
+/* Bouton pause de la boucle (affiché par le script, absent en mouvement réduit) */
+.build-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--acier);
+  cursor: pointer;
+  translate: 0 -50%;
+  transition: color 0.15s, background 0.15s;
+}
+.build-toggle[hidden] { display: none; }
+.build-toggle:hover {
+  color: var(--blanc);
+  background: rgba(255, 255, 255, 0.09);
+}
+.build-toggle svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  fill: currentColor;
+}
+.build-toggle .tg-play,
+.hero-build.is-paused .build-toggle .tg-pause { display: none; }
+.hero-build.is-paused .build-toggle .tg-play { display: block; }
+
 .build-page {
   --brick-cut: 0.55rem;
   display: grid;
@@ -1016,9 +1049,8 @@ svg { display: block; }
 /* ---------- Animation d'arrivée (la seule de la page) ----------
    État initial masqué uniquement si JS est présent ; sinon tout est visible.
    L'étincelle traverse le hero, laisse un filet derrière elle et révèle le titre,
-   puis le texte prend place. La maquette se monte brique par brique dès qu'elle est
-   visible (.is-building), de bas en haut : contact, devis, avis, texte, photos, en-tête,
-   puis l'adresse s'allume. */
+   puis le texte prend place. La maquette se monte et se démonte en boucle tant
+   qu'elle est visible (détail plus bas). */
 html.js .line-inner { transform: translateY(112%); }
 html.js .hero-rule-bar { transform: scaleX(0); }
 html.js .spark { left: 0; opacity: 0; }
@@ -1040,16 +1072,44 @@ html.play .spark {
 }
 html.play .hero-aside { animation: settle 0.7s var(--ease-out) 0.95s forwards; }
 html.play .hero-build { animation: settle 0.7s var(--ease-out) 0.6s forwards; }
-/* Montage : .is-building est posé par le script sur la maquette quand elle est visible.
-   De bas en haut comme un mur : chaque brique ne traverse que des emplacements vides. */
-.hero-build.is-building .brick-drop { animation: drop 0.7s linear forwards; }
-.hero-build.is-building .brick:nth-child(5) .brick-drop { animation-delay: 0.3s; }
-.hero-build.is-building .brick:nth-child(4) .brick-drop { animation-delay: 0.5s; }
-.hero-build.is-building .brick:nth-child(3) .brick-drop { animation-delay: 0.8s; }
-.hero-build.is-building .brick:nth-child(2) .brick-drop { animation-delay: 1.1s; }
-.hero-build.is-building .brick:nth-child(1) .brick-drop { animation-delay: 1.4s; }
-.hero-build.is-building .build-dot { animation: online 0.5s ease-out 2.2s forwards; }
-.hero-build.is-building .build-url { animation: online-text 0.5s ease-out 2.2s forwards; }
+/* Boucle pilotée par le script sur la maquette :
+   .is-building (7,2 s) — chute de bas en haut comme un mur, chaque brique ne traverse
+   que des emplacements vides, puis l'adresse s'allume et le site reste affiché ;
+   .is-clearing (1,2 s) — les briques se lèvent et s'effacent de haut en bas ;
+   sans classe (0,8 s) — le plan en pointillés, puis ça recommence.
+   .is-paused — maquette finie, figée (bouton pause). */
+.hero-build.is-building .brick-drop { animation: drop 1s linear forwards; }
+.hero-build.is-building .brick:nth-child(5) .brick-drop { animation-delay: 0.4s; }
+.hero-build.is-building .brick:nth-child(4) .brick-drop { animation-delay: 0.7s; }
+.hero-build.is-building .brick:nth-child(3) .brick-drop { animation-delay: 1.1s; }
+.hero-build.is-building .brick:nth-child(2) .brick-drop { animation-delay: 1.5s; }
+.hero-build.is-building .brick:nth-child(1) .brick-drop { animation-delay: 1.9s; }
+.hero-build.is-building .build-dot { animation: online 0.6s ease-out 3.1s forwards; }
+.hero-build.is-building .build-url { animation: online-text 0.6s ease-out 3.1s forwards; }
+
+.hero-build.is-clearing .brick-drop { animation: lift 0.5s ease-in both; }
+.hero-build.is-clearing .brick:nth-child(2) .brick-drop { animation-delay: 0.1s; }
+.hero-build.is-clearing .brick:nth-child(3) .brick-drop { animation-delay: 0.2s; }
+.hero-build.is-clearing .brick:nth-child(4) .brick-drop { animation-delay: 0.3s; }
+.hero-build.is-clearing .brick:nth-child(5) .brick-drop { animation-delay: 0.35s; }
+.hero-build.is-clearing .brick:nth-child(6) .brick-drop { animation-delay: 0.45s; }
+.hero-build.is-clearing .build-dot { animation: offline 0.4s ease-out both; }
+.hero-build.is-clearing .build-url { animation: offline-text 0.4s ease-out both; }
+
+.hero-build.is-paused .brick-drop {
+  animation: none;
+  opacity: 1;
+  transform: none;
+}
+.hero-build.is-paused .build-dot {
+  animation: none;
+  background: var(--ambre);
+  box-shadow: 0 0 8px rgba(245, 165, 36, 0.9);
+}
+.hero-build.is-paused .build-url {
+  animation: none;
+  color: var(--blanc);
+}
 
 @keyframes rise { to { transform: translateY(0); } }
 @keyframes draw { to { transform: scaleX(1); } }
@@ -1078,6 +1138,18 @@ html.play .hero-build { animation: settle 0.7s var(--ease-out) 0.6s forwards; }
   100% { background: var(--ambre); box-shadow: 0 0 8px rgba(245, 165, 36, 0.9); }
 }
 @keyframes online-text { to { color: var(--blanc); } }
+@keyframes lift {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-1.25rem); }
+}
+@keyframes offline {
+  from { background: var(--ambre); box-shadow: 0 0 8px rgba(245, 165, 36, 0.9); }
+  to { background: var(--acier-2); box-shadow: none; }
+}
+@keyframes offline-text {
+  from { color: var(--blanc); }
+  to { color: var(--acier); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

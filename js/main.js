@@ -1,7 +1,6 @@
 /* Spark Pro — interactions de la page
    1. animation d'arrivée (démarre quand la police est prête) et montage de la
-      maquette (démarre quand elle est visible : tout de suite sur ordinateur,
-      au défilement sur téléphone)
+      maquette en boucle (tourne quand elle est visible, bouton pause)
    2. menu mobile
    3. section courante dans la navigation
    4. formulaire : validation inline puis envoi via Web3Forms (reçu sur contact@sparklearning.fr) */
@@ -24,28 +23,67 @@
     scheduleBuild();
   }
 
-  /* Maquette : les briques tombent dès qu'un tiers de la maquette est visible
-     (au chargement sur la plupart des écrans, sinon au défilement), et jamais
-     avant que le titre ait fini de se révéler (900 ms après le départ). */
+  /* Maquette : le site se monte brique par brique, reste affiché, se démonte,
+     puis recommence. La boucle ne tourne que si un tiers de la maquette est à
+     l'écran, l'onglet visible et la pause non demandée ; le premier montage
+     attend la fin du titre (900 ms après le départ). En mouvement réduit, pas
+     de boucle : la maquette finie reste affichée. */
   var build = document.querySelector('.hero-build');
-  var buildSeen = false;
-  var buildScheduled = false;
-  function scheduleBuild() {
-    if (!build || buildScheduled || !started || !buildSeen) { return; }
-    buildScheduled = true;
-    var wait = reduced ? 0 : Math.max(0, 900 - (Date.now() - playedAt));
-    window.setTimeout(function () { build.classList.add('is-building'); }, wait);
+  var buildToggle = build && build.querySelector('.build-toggle');
+  var PHASES = [['is-building', 7200], ['is-clearing', 1200], ['', 800]];
+  var buildReady = false;
+  var onScreen = false;
+  var paused = false;
+  var running = false;
+  var buildTimer = null;
+
+  function setPhase(name) {
+    build.classList.remove('is-building', 'is-clearing');
+    if (name) { build.classList.add(name); }
   }
+  function canRun() {
+    return buildReady && onScreen && !paused && !document.hidden;
+  }
+  function runPhase(index) {
+    if (index === 0 && !canRun()) { running = false; return; }
+    running = true;
+    setPhase(PHASES[index][0]);
+    buildTimer = window.setTimeout(function () {
+      runPhase((index + 1) % PHASES.length);
+    }, PHASES[index][1]);
+  }
+  function startLoop() {
+    if (!running && canRun()) { runPhase(0); }
+  }
+  function scheduleBuild() {
+    if (!build || reduced) { return; }
+    window.setTimeout(function () {
+      buildReady = true;
+      startLoop();
+    }, Math.max(0, 900 - (Date.now() - playedAt)));
+  }
+  function setPaused(value) {
+    paused = value;
+    window.clearTimeout(buildTimer);
+    running = false;
+    setPhase('');
+    build.classList.toggle('is-paused', paused);
+    buildToggle.setAttribute('aria-label', paused ? 'Relancer l’animation' : 'Mettre l’animation en pause');
+    startLoop();
+  }
+
   if (build && !reduced && 'IntersectionObserver' in window) {
-    var buildObserver = new IntersectionObserver(function (entries) {
-      if (!entries.some(function (entry) { return entry.isIntersecting; })) { return; }
-      buildObserver.disconnect();
-      buildSeen = true;
-      scheduleBuild();
-    }, { threshold: 0.3 });
-    buildObserver.observe(build);
-  } else {
-    buildSeen = true;
+    new IntersectionObserver(function (entries) {
+      onScreen = entries[entries.length - 1].intersectionRatio >= 0.29;
+      startLoop();
+    }, { threshold: [0, 0.3] }).observe(build);
+    document.addEventListener('visibilitychange', startLoop);
+    if (buildToggle) {
+      buildToggle.hidden = false;
+      buildToggle.addEventListener('click', function () { setPaused(!paused); });
+    }
+  } else if (build && !reduced) {
+    build.classList.add('is-paused'); /* navigateur ancien : maquette finie, sans boucle */
   }
   if (reduced) {
     play();
