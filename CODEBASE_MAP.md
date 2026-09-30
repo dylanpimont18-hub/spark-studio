@@ -3,7 +3,7 @@
 ## index.html
 Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de page.
 - `header.site-header` — marque, bouton Menu (mobile), nav ancres, CTA
-- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-phone` (capture mobile réelle du site pib-vierzon.fr dans un cadre de téléphone CSS)
+- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-build` (maquette « chantier » : fenêtre de navigateur `.build` avec adresse `votre-metier.fr`, page `.build-page` de 6 briques `.brick` — en-tête, photos, texte, avis, devis, contact — qui se montent une à une ; `.build-caption` explique le principe ; tout le mock est `aria-hidden`)
 - `section#inclus` — liste `.feature-list` (4 lignes titre + phrase, pictos SVG inline)
 - `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
 - `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture), `.work-text` avec `dl.work-facts` (budget réel, fréquentation), alternance via `.work-flip`
@@ -22,8 +22,8 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.is-dark` / `.section-tint` — surfaces ; grain via `::before`, reflet lumineux via `.is-dark::after`
 - `.site-header` — collant, translucide avec `backdrop-filter`
 - `.btn` — bouton chanfreiné (dégradé 45°), `@property --btn-bg` pour la transition
-- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play`
-- `.hero-phone`, `.phone`, `.phone-screen img` — téléphone (absolu à droite du hero, déborde en bas ; statique sous 56rem)
+- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play` : titre, filet, étincelle, puis chute des briques (`@keyframes drop`, rebonds, décalées de 1 s à 2,4 s) et adresse qui s'allume en ambre (`online`, 3,2 s)
+- `.hero-build`, `.build*`, `.brick*`, `.mock-*` — maquette chantier (absolue à droite du hero, déborde en bas ; 18rem sous 75rem, statique et pleine largeur sous 56rem) ; briques chanfreinées via `clip-path` sur `.brick-face`, ombre portée via `filter` sur `.brick`
 - `.work*`, `.browser*` — réalisations : fenêtres de navigateur avec ombre, texte aligné en bas, empilées sous 56rem
 - `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
 - `.tier-list`, `.tier` — 3 colonnes, marches via `margin-top` décroissant (`nth-child`), chanfrein `clip-path`, bord haut ambre, brossé `::before`, `.tier-ref` poussé en bas (`margin-top: auto`)
@@ -46,7 +46,7 @@ IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 ## assets/
 - `fonts/BricolageGrotesque-latin.woff2`, `…-latin-ext.woff2` — police variable auto-hébergée
 - `favicon.svg` — étincelle ambre sur bleu
-- `realisations/pib-desktop.webp`, `solybat-desktop.webp`, `sparklearning-desktop.webp` (1200×633), `pib-mobile.webp` (500×956) — captures des sites clients
+- `realisations/pib-desktop.webp`, `solybat-desktop.webp`, `sparklearning-desktop.webp` (1200×633) — captures des sites clients
 
 ## Autres
 - Déploiement : https://sparkpro.fr (GitHub Pages, branche `main`, racine, `CNAME` = sparkpro.fr ; miroir dylanpimont18-hub.github.io/sparkpro)

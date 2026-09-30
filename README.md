@@ -47,7 +47,7 @@ css/style.css       tokens, mise en page, composants, animation d'arrivée, resp
 js/main.js          menu mobile, section courante, validation du formulaire, mailto
 assets/fonts/       Bricolage Grotesque (variable, woff2, auto-hébergée)
 assets/favicon.svg  étincelle
-assets/realisations captures WebP des sites clients (hero et section Réalisations)
+assets/realisations captures WebP des sites clients (section Réalisations)
 docs/superpowers/   spec de design
 ```
 
@@ -55,4 +55,5 @@ docs/superpowers/   spec de design
 
 Concept « bleu de travail et étincelle » : bleu profond, plâtre clair, acier, et un seul
 accent ambre. Une seule famille typographique (Bricolage Grotesque), graisses 800 et 300.
-Une seule animation, au chargement du hero. Détails dans `docs/superpowers/specs/`.
+Une seule animation, au chargement du hero : le titre se révèle, puis la maquette de site
+se monte brique par brique (en-tête, photos, texte, avis, devis, contact, mise en ligne). Détails dans `docs/superpowers/specs/`.
