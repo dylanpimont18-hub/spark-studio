@@ -31,10 +31,10 @@
   var buildSeen = false;
   var buildScheduled = false;
   function scheduleBuild() {
-    if (buildScheduled || !started || !buildSeen) { return; }
+    if (!build || buildScheduled || !started || !buildSeen) { return; }
     buildScheduled = true;
     var wait = reduced ? 0 : Math.max(0, 900 - (Date.now() - playedAt));
-    window.setTimeout(function () { html.classList.add('build'); }, wait);
+    window.setTimeout(function () { build.classList.add('is-building'); }, wait);
   }
   if (build && !reduced && 'IntersectionObserver' in window) {
     var buildObserver = new IntersectionObserver(function (entries) {
