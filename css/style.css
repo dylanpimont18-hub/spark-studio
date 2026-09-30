@@ -324,7 +324,7 @@ svg { display: block; }
 }
 
 .hero-rule {
-  grid-column: 1 / span 9;
+  grid-column: 1 / span 8; /* s'arrête avant la maquette posée à droite */
   position: relative;
   height: 2px;
 }
@@ -364,7 +364,7 @@ svg { display: block; }
   position: absolute;
   right: max(var(--gutter), calc((100% - var(--wrap)) / 2));
   bottom: -4.5rem;
-  width: 23rem;
+  width: 20rem; /* laisse la colonne du texte libre à 1366 px et plus */
   display: grid;
   gap: 0.9rem;
   z-index: 2;
@@ -1017,7 +1017,8 @@ svg { display: block; }
    État initial masqué uniquement si JS est présent ; sinon tout est visible.
    L'étincelle traverse le hero, laisse un filet derrière elle et révèle le titre,
    puis le texte prend place. La maquette se monte brique par brique dès qu'elle est
-   visible (html.build) : en-tête, photos, texte, avis, devis, contact, puis l'adresse s'allume. */
+   visible (html.build), de bas en haut : contact, devis, avis, texte, photos, en-tête,
+   puis l'adresse s'allume. */
 html.js .line-inner { transform: translateY(112%); }
 html.js .hero-rule-bar { transform: scaleX(0); }
 html.js .spark { left: 0; opacity: 0; }
@@ -1039,13 +1040,14 @@ html.play .spark {
 }
 html.play .hero-aside { animation: settle 0.7s var(--ease-out) 0.95s forwards; }
 html.play .hero-build { animation: settle 0.7s var(--ease-out) 0.6s forwards; }
-/* Montage : html.build est posé par le script quand la maquette est visible */
+/* Montage : html.build est posé par le script quand la maquette est visible.
+   De bas en haut comme un mur : chaque brique ne traverse que des emplacements vides. */
 html.build .brick-drop { animation: drop 0.7s linear forwards; }
-html.build .brick:nth-child(2) .brick-drop { animation-delay: 0.3s; }
-html.build .brick:nth-child(3) .brick-drop { animation-delay: 0.6s; }
-html.build .brick:nth-child(4) .brick-drop { animation-delay: 0.9s; }
-html.build .brick:nth-child(5) .brick-drop { animation-delay: 1.1s; }
-html.build .brick:nth-child(6) .brick-drop { animation-delay: 1.4s; }
+html.build .brick:nth-child(5) .brick-drop { animation-delay: 0.3s; }
+html.build .brick:nth-child(4) .brick-drop { animation-delay: 0.5s; }
+html.build .brick:nth-child(3) .brick-drop { animation-delay: 0.8s; }
+html.build .brick:nth-child(2) .brick-drop { animation-delay: 1.1s; }
+html.build .brick:nth-child(1) .brick-drop { animation-delay: 1.4s; }
 html.build .build-dot { animation: online 0.5s ease-out 2.2s forwards; }
 html.build .build-url { animation: online-text 0.5s ease-out 2.2s forwards; }
 
@@ -1106,10 +1108,23 @@ html.build .build-url { animation: online-text 0.5s ease-out 2.2s forwards; }
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 75rem) {
+/* Portables peu hauts (768 px et moins) : le hero doit tenir sous le pli, maquette comprise */
+@media (min-width: 56.01rem) and (max-height: 50rem) {
+  .hero { padding-block: 2.5rem; }
+  .hero-inner { row-gap: 1.75rem; }
+  .hero-title { font-size: clamp(2.75rem, 7vw, 7rem); }
+  .hero-aside { gap: 1.25rem; }
+  .hero-build { bottom: -3rem; }
+}
+
+@media (max-width: 81rem) {
   .hero-aside { grid-column: 4 / span 5; }
   .hero-build { width: 18rem; }
   .brick-face { font-size: 0.7rem; }
+}
+
+@media (max-width: 62rem) and (min-width: 56.01rem) {
+  .hero-build { width: 16rem; }
 }
 
 @media (max-width: 56rem) {

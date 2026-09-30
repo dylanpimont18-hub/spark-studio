@@ -24,7 +24,8 @@
     scheduleBuild();
   }
 
-  /* Maquette : les briques tombent quand la maquette est assez visible, et jamais
+  /* Maquette : les briques tombent dès qu'un tiers de la maquette est visible
+     (au chargement sur la plupart des écrans, sinon au défilement), et jamais
      avant que le titre ait fini de se révéler (900 ms après le départ). */
   var build = document.querySelector('.hero-build');
   var buildSeen = false;
@@ -41,7 +42,7 @@
       buildObserver.disconnect();
       buildSeen = true;
       scheduleBuild();
-    }, { threshold: desktop.matches ? 0.5 : 0.85 });
+    }, { threshold: 0.3 });
     buildObserver.observe(build);
   } else {
     buildSeen = true;

@@ -22,8 +22,8 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.is-dark` / `.section-tint` — surfaces ; grain via `::before`, reflet lumineux via `.is-dark::after`
 - `.site-header` — collant, translucide avec `backdrop-filter`
 - `.btn` — bouton chanfreiné (dégradé 45°), `@property --btn-bg` pour la transition
-- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play` : titre, filet, étincelle ; montage sous `html.build` (posé par le script quand la maquette est visible) : chute des briques (`@keyframes drop`, rebonds, décalées de 0 à 1,4 s) et adresse qui s'allume en ambre (`online`, 2,2 s)
-- `.hero-build`, `.build*`, `.brick*`, `.mock-*` — maquette chantier (absolue à droite du hero, déborde en bas ; 18rem sous 75rem, statique et pleine largeur sous 56rem) ; briques chanfreinées via `clip-path` sur `.brick-face`, ombre portée via `filter` sur `.brick-drop` (animé), emplacement pointillé via `.brick::before`
+- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play` : titre, filet, étincelle ; montage sous `html.build` (posé par le script quand la maquette est visible) : chute des briques de bas en haut (`@keyframes drop`, rebonds, contact à 0 s jusqu'à l'en-tête à 1,4 s) et adresse qui s'allume en ambre (`online`, 2,2 s)
+- `.hero-build`, `.build*`, `.brick*`, `.mock-*` — maquette chantier (absolue à droite du hero, déborde en bas ; 20rem, 18rem sous 81rem, 16rem sous 62rem, statique et pleine largeur sous 56rem ; hero resserré sous 50rem de haut pour tenir sous le pli) ; briques chanfreinées via `clip-path` sur `.brick-face`, ombre portée via `filter` sur `.brick-drop` (animé), emplacement pointillé via `.brick::before`
 - `.work*`, `.browser*` — réalisations : fenêtres de navigateur avec ombre, texte aligné en bas, empilées sous 56rem
 - `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
 - `.tier-list`, `.tier` — 3 colonnes, marches via `margin-top` décroissant (`nth-child`), chanfrein `clip-path`, bord haut ambre, brossé `::before`, `.tier-ref` poussé en bas (`margin-top: auto`)
@@ -37,7 +37,7 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 ## js/main.js
 IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 - play() — lance l'animation quand la police est chargée (ou après 700 ms)
-- scheduleBuild() — pose `html.build` quand la police est prête et que `.hero-build` est visible (IntersectionObserver, seuil 50 % sur ordinateur, 85 % sur téléphone), au plus tôt 900 ms après le départ
+- scheduleBuild() — pose `html.build` quand la police est prête et que `.hero-build` est visible (IntersectionObserver, seuil 30 %), au plus tôt 900 ms après le départ
 - setOpen(open) — ouvre/ferme le menu mobile (`aria-expanded`, Échap, retour desktop)
 - IntersectionObserver — pose `aria-current` sur le lien de la section visible
 - validate(input) — validation inline en français (`.is-invalid`, `aria-invalid`)
