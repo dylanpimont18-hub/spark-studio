@@ -1,5 +1,7 @@
 /* Spark Pro — interactions de la page
-   1. animation d'arrivée (démarre quand la police est prête)
+   1. animation d'arrivée (démarre quand la police est prête) et montage de la
+      maquette (démarre quand elle est visible : tout de suite sur ordinateur,
+      au défilement sur téléphone)
    2. menu mobile
    3. section courante dans la navigation
    4. formulaire : validation inline puis envoi via Web3Forms (reçu sur contact@sparklearning.fr) */
@@ -11,11 +13,38 @@
 
   /* ---------- 1. Animation d'arrivée ---------- */
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var desktop = window.matchMedia('(min-width: 56.01rem)');
   var started = false;
+  var playedAt = 0;
   function play() {
     if (started) { return; }
     started = true;
+    playedAt = Date.now();
     window.requestAnimationFrame(function () { html.classList.add('play'); });
+    scheduleBuild();
+  }
+
+  /* Maquette : les briques tombent quand la maquette est assez visible, et jamais
+     avant que le titre ait fini de se révéler (900 ms après le départ). */
+  var build = document.querySelector('.hero-build');
+  var buildSeen = false;
+  var buildScheduled = false;
+  function scheduleBuild() {
+    if (buildScheduled || !started || !buildSeen) { return; }
+    buildScheduled = true;
+    var wait = reduced ? 0 : Math.max(0, 900 - (Date.now() - playedAt));
+    window.setTimeout(function () { html.classList.add('build'); }, wait);
+  }
+  if (build && !reduced && 'IntersectionObserver' in window) {
+    var buildObserver = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (entry) { return entry.isIntersecting; })) { return; }
+      buildObserver.disconnect();
+      buildSeen = true;
+      scheduleBuild();
+    }, { threshold: desktop.matches ? 0.5 : 0.85 });
+    buildObserver.observe(build);
+  } else {
+    buildSeen = true;
   }
   if (reduced) {
     play();
@@ -50,7 +79,6 @@
       toggle.focus();
     }
   });
-  var desktop = window.matchMedia('(min-width: 56.01rem)');
   if (desktop.addEventListener) {
     desktop.addEventListener('change', function (event) {
       if (event.matches) { setOpen(false); }

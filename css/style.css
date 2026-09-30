@@ -420,11 +420,24 @@ svg { display: block; }
   background: var(--blanc);
 }
 .brick {
+  position: relative;
   grid-column: 1 / -1;
-  filter: drop-shadow(0 6px 10px rgba(27, 45, 72, 0.2));
 }
 .brick-avis, .brick-devis { grid-column: span 1; }
+.brick::before { /* emplacement en pointillés : le plan du chantier, recouvert quand la brique se pose */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1.5px dashed rgba(27, 45, 72, 0.28);
+  clip-path: polygon(0 0, calc(100% - var(--brick-cut)) 0, 100% var(--brick-cut), 100% 100%, 0 100%);
+}
+.brick-drop {
+  position: relative;
+  height: 100%;
+  filter: drop-shadow(0 6px 10px rgba(27, 45, 72, 0.2));
+}
 .brick-face {
+  height: 100%;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -1003,14 +1016,14 @@ svg { display: block; }
 /* ---------- Animation d'arrivée (la seule de la page) ----------
    État initial masqué uniquement si JS est présent ; sinon tout est visible.
    L'étincelle traverse le hero, laisse un filet derrière elle et révèle le titre,
-   puis le texte prend place et la maquette se monte brique par brique :
-   en-tête, photos, texte, avis, devis, contact, puis l'adresse s'allume. */
+   puis le texte prend place. La maquette se monte brique par brique dès qu'elle est
+   visible (html.build) : en-tête, photos, texte, avis, devis, contact, puis l'adresse s'allume. */
 html.js .line-inner { transform: translateY(112%); }
 html.js .hero-rule-bar { transform: scaleX(0); }
 html.js .spark { left: 0; opacity: 0; }
 html.js .hero-aside { opacity: 0; transform: translateY(14px); }
 html.js .hero-build { opacity: 0; transform: translateY(28px); }
-html.js .brick { opacity: 0; transform: translateY(-18rem); }
+html.js .brick-drop { opacity: 0; transform: translateY(-18rem); }
 html.js .build-url { color: var(--acier); }
 html.js .build-dot { background: var(--acier-2); box-shadow: none; }
 
@@ -1026,15 +1039,15 @@ html.play .spark {
 }
 html.play .hero-aside { animation: settle 0.7s var(--ease-out) 0.95s forwards; }
 html.play .hero-build { animation: settle 0.7s var(--ease-out) 0.6s forwards; }
-html.play .brick { animation: drop 0.7s linear forwards; }
-html.play .brick:nth-child(1) { animation-delay: 1s; }
-html.play .brick:nth-child(2) { animation-delay: 1.3s; }
-html.play .brick:nth-child(3) { animation-delay: 1.6s; }
-html.play .brick:nth-child(4) { animation-delay: 1.9s; }
-html.play .brick:nth-child(5) { animation-delay: 2.1s; }
-html.play .brick:nth-child(6) { animation-delay: 2.4s; }
-html.play .build-dot { animation: online 0.5s ease-out 3.2s forwards; }
-html.play .build-url { animation: online-text 0.5s ease-out 3.2s forwards; }
+/* Montage : html.build est posé par le script quand la maquette est visible */
+html.build .brick-drop { animation: drop 0.7s linear forwards; }
+html.build .brick:nth-child(2) .brick-drop { animation-delay: 0.3s; }
+html.build .brick:nth-child(3) .brick-drop { animation-delay: 0.6s; }
+html.build .brick:nth-child(4) .brick-drop { animation-delay: 0.9s; }
+html.build .brick:nth-child(5) .brick-drop { animation-delay: 1.1s; }
+html.build .brick:nth-child(6) .brick-drop { animation-delay: 1.4s; }
+html.build .build-dot { animation: online 0.5s ease-out 2.2s forwards; }
+html.build .build-url { animation: online-text 0.5s ease-out 2.2s forwards; }
 
 @keyframes rise { to { transform: translateY(0); } }
 @keyframes draw { to { transform: scaleX(1); } }
@@ -1070,7 +1083,7 @@ html.play .build-url { animation: online-text 0.5s ease-out 3.2s forwards; }
   html.js .hero-rule-bar,
   html.js .hero-aside,
   html.js .hero-build,
-  html.js .brick {
+  html.js .brick-drop {
     transform: none;
     opacity: 1;
     animation: none;

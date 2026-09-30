@@ -3,7 +3,7 @@
 ## index.html
 Page unique : en-tête collant, hero, Inclus, Métiers, Tarif, Contact, pied de page.
 - `header.site-header` — marque, bouton Menu (mobile), nav ancres, CTA
-- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-build` (maquette « chantier » : fenêtre de navigateur `.build` avec adresse `votre-metier.fr`, page `.build-page` de 6 briques `.brick` — en-tête, photos, texte, avis, devis, contact — qui se montent une à une ; `.build-caption` explique le principe ; tout le mock est `aria-hidden`)
+- `section.hero` — H1 en 3 lignes animées, filet ambre + étincelle, sous-titre, CTA, `figure.hero-build` (maquette « chantier » : fenêtre de navigateur `.build` avec adresse `votre-metier.fr`, page `.build-page` de 6 briques `.brick` > `.brick-drop` > `.brick-face` — en-tête, photos, texte, avis, devis, contact — qui se montent une à une sur un plan en pointillés ; `.build-caption` explique le principe ; tout le mock est `aria-hidden`)
 - `section#inclus` — liste `.feature-list` (4 lignes titre + phrase, pictos SVG inline)
 - `section#metiers` — tableau pleine largeur `.trade-list` (picto, famille, métiers), variante `.section-table`
 - `section#realisations` — `.work-list` : 3 réalisations réelles (PIB Vierzon, Soly'bat 18, Spark Learning), fenêtre navigateur `.browser` (pastille URL + capture), `.work-text` avec `dl.work-facts` (budget réel, fréquentation), alternance via `.work-flip`
@@ -22,8 +22,8 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 - `.is-dark` / `.section-tint` — surfaces ; grain via `::before`, reflet lumineux via `.is-dark::after`
 - `.site-header` — collant, translucide avec `backdrop-filter`
 - `.btn` — bouton chanfreiné (dégradé 45°), `@property --btn-bg` pour la transition
-- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play` : titre, filet, étincelle, puis chute des briques (`@keyframes drop`, rebonds, décalées de 1 s à 2,4 s) et adresse qui s'allume en ambre (`online`, 3,2 s)
-- `.hero-build`, `.build*`, `.brick*`, `.mock-*` — maquette chantier (absolue à droite du hero, déborde en bas ; 18rem sous 75rem, statique et pleine largeur sous 56rem) ; briques chanfreinées via `clip-path` sur `.brick-face`, ombre portée via `filter` sur `.brick`
+- `.hero-*`, `.line`, `.spark` — structure du hero ; états initiaux sous `html.js`, animation sous `html.play` : titre, filet, étincelle ; montage sous `html.build` (posé par le script quand la maquette est visible) : chute des briques (`@keyframes drop`, rebonds, décalées de 0 à 1,4 s) et adresse qui s'allume en ambre (`online`, 2,2 s)
+- `.hero-build`, `.build*`, `.brick*`, `.mock-*` — maquette chantier (absolue à droite du hero, déborde en bas ; 18rem sous 75rem, statique et pleine largeur sous 56rem) ; briques chanfreinées via `clip-path` sur `.brick-face`, ombre portée via `filter` sur `.brick-drop` (animé), emplacement pointillé via `.brick::before`
 - `.work*`, `.browser*` — réalisations : fenêtres de navigateur avec ombre, texte aligné en bas, empilées sous 56rem
 - `.section-grid`, `.section-head` (sticky, filet ambre `::before`), `.section-body`, `.section-table` (titre en haut, rangées pleine largeur)
 - `.tier-list`, `.tier` — 3 colonnes, marches via `margin-top` décroissant (`nth-child`), chanfrein `clip-path`, bord haut ambre, brossé `::before`, `.tier-ref` poussé en bas (`margin-top: auto`)
@@ -37,6 +37,7 @@ Feuille unique, ordonnée : polices → tokens → base → en-tête → boutons
 ## js/main.js
 IIFE sans dépendance. Ajoute `html.js` puis `html.play`.
 - play() — lance l'animation quand la police est chargée (ou après 700 ms)
+- scheduleBuild() — pose `html.build` quand la police est prête et que `.hero-build` est visible (IntersectionObserver, seuil 50 % sur ordinateur, 85 % sur téléphone), au plus tôt 900 ms après le départ
 - setOpen(open) — ouvre/ferme le menu mobile (`aria-expanded`, Échap, retour desktop)
 - IntersectionObserver — pose `aria-current` sur le lien de la section visible
 - validate(input) — validation inline en français (`.is-invalid`, `aria-invalid`)
